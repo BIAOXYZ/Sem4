@@ -4,4 +4,4 @@ select title from book natural join writes natural join author group by title ha
 
 select aname from author natural join writes natural join author group by aname having max(count(distinct title));
 
-select pname from publisher natural join book group by category having max(count(category));
+select pname from publisher natural join book group by category having max(count(distinct category));
