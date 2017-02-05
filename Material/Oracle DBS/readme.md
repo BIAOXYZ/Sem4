@@ -6,14 +6,14 @@ Remember the password you set during installation
 ### After Installation
 On **cmd**
 ```
-sqlpus
+sqlplus
 username:system
 password:<password>
 ```
 
 ### Creation of a new User
 ```
-create user <username> identified by <password> defualt tablespace users temporary tablespace tmp;
+create user <username> identified by <password> defualt tablespace users temporary tablespace temp;
 grant dba to <username>;
 exit
 ```
