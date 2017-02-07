@@ -10,7 +10,7 @@ lea di,arr
 mov bh,num
 l1:add bh,1
 cmp bh,num+1
-jc l4
+je l4
 mov bl,1
 l2:add bl,1
 cmp bl,bh
