@@ -1,0 +1,7 @@
+week 1 code 
+to run the code do:
+masm filename.asm;
+link filename.obj
+td filename
+
+press f7 and view->dump
