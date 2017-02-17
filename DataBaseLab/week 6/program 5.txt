@@ -1,0 +1,14 @@
+set serveroutput on
+declare
+	type dt is varray(5) of DATE;
+	d dt;
+	i int:=1;
+ begin
+	d:=dt('10-JAN-2014','12-FEB-2014','15-MAR-2015','16-APR-2016','21-NOV-2017');
+	while i<6 
+	 loop 
+		insert into TBL_NEXT_DATE values(d(i),d(i)+1);
+		i:=i+1;
+	 end loop;
+ end;
+/
