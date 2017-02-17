@@ -1,0 +1,25 @@
+set serveroutput on
+declare 
+	a int;
+	b int :=0;
+	c int :=0;
+ begin 
+	a :=&x;
+	c :=a;
+	loop
+		if c=0 then
+			exit;
+		end if; 
+		b :=(b*10)+c mod 10;
+		c :=c/10;
+	end loop;
+	if a=b then
+	dbms_output.put_line('Palindrome');
+	else 
+	dbms_output.put_line('Not a Palindrome');
+	end if;
+	
+end;
+/
+	
+		
