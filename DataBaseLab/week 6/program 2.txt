@@ -1,0 +1,19 @@
+set serveroutput on
+declare 
+	amt float;
+	doi date :=21-DEC-2017;
+	dor date :=01-JAN-2018;
+	days number;
+ begin
+	days:=dor-doi;
+	IF 	days=5 then
+		amt:=0.5*days;
+	elsif	days<=10 then
+		amt:=1.0*days;
+	elsif	days<=30 then
+		amt:=5.0*days;
+	else	amt:=10*days;
+ 	end if;
+	dbms_output.put_line('For '|| to_char(days)||'fine is'||to_char(amt));
+end;
+/
