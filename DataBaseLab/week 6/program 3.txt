@@ -1,0 +1,17 @@
+set serveroutput on
+declare
+	a int :=0;
+	b int :=1;
+	c int;
+	d int;
+begin
+	d:=&d;
+	dbms_output.put_line(to_char(a)||''||to_char(b)||'');
+	for i in 3..d loop
+		c:=a+b;
+		a:=b;
+		b:=c;
+		dbms_output.put_line(to_char(c)||'');
+	end loop;
+end;
+/
