@@ -5,7 +5,7 @@ declare
 	vol float;
  begin
 	r:=3;
-	 while r<7 loop
+	 while r<8 loop
 			vol:= (4/3)*(3.14)*(r*r*r);
 			sa:= 4*(3.14)*(r*r);
 		insert into SPHERE values(r,vol,sa);
