@@ -1,0 +1,22 @@
+1.set serveroutput on
+declare 
+	a int :=&a;
+	b int :=&b;
+	c int :=&c;
+	d int;
+	r1 float;
+	r2 float;
+ begin
+	d:= (b*b)-(4*a*c);
+	IF d>0 THEN
+	 	r1:=((-b)+sqrt(d))/(2*a);
+	 	r2:=((-b)-sqrt(d))/(2*a);
+		dbms_output.put_line('Roots are'|| to_char(r1)|| 'and' || to_char(r2));
+	ELSIF d=0 THEN
+		r1:=(-b)/(2*a);
+		dbms_output.put_line('Roots are'|| to_char(r1)|| 'and' || to_char(r1));
+	ELSE 
+		dbms_output.put_line('Roots are imaginary');
+	END IF;
+end;
+/	
