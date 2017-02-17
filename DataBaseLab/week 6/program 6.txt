@@ -1,0 +1,15 @@
+set serveroutput on
+declare
+	r int;
+	sa float;
+	vol float;
+ begin
+	r:=3;
+	 while r<8 loop
+			vol:= (4/3)*(3.14)*(r*r*r);
+			sa:= 4*(3.14)*(r*r);
+		insert into SPHERE values(r,vol,sa);
+		r:=r+1;
+		end loop;
+ end;
+/
