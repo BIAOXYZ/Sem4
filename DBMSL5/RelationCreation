@@ -1,0 +1,80 @@
+ create table department1
+	(dno		varchar(20), 
+	 name		varchar(15),
+	 primary key (dno)
+	);
+
+insert into department1 values ('cs-100', 'cse');
+insert into department1 values ('bi-200', 'biology');
+insert into department1 values ('it-50', 'it');
+
+create table dept_loc
+(dno		varchar(20),
+location	varchar(15)
+);
+
+insert into dept_loc values ('cs-100', 'Ab-5');
+insert into dept_loc values ('bi-200', 'Ab-1');
+insert into dept_loc values ('it-50', 'Ab-5');
+
+create table employee
+(
+	ssn 		varchar(20),
+	dno 		varchar(20),
+	dob		date,
+	fname		varchar(20) not null,
+	minit 		varchar(20),
+	lname		varchar(20) not null,
+	address		varchar(20),
+	salary		numeric(12,2) check (salary>0),
+	gender		varchar(1) check (gender in('M','F')),
+	primary key(ssn),
+	foreign key(dno) references department1 on delete cascade
+);
+
+insert into employee values('b-1010','bi-200','12-dec-1997','Sampurna','Biswas','Shampoo','Saket','50000','F');
+insert into employee values('c-1010','cs-100','12-mar-1997','Namya','Dhristi','Rastogi','Vasant_Kunj','50000','F');
+
+
+create table project
+(
+	pno		varchar(20),
+	name		varchar(20),
+	location	varchar(20),
+	primary key(pno)	
+);
+
+create table dependent
+(
+	ssn 		varchar(20),
+	name		varchar(20),
+	gender		varchar(1) check (gender in ('M','F')),
+	dob		date,
+	relationship	varchar(20),
+	primary key(ssn,name)
+);
+
+create table e_manager
+(
+	dno		varchar(20),
+	ssn		varchar(20),
+	start_data	date,
+	foreign key(dno) references department on delete cascade,
+	foreign key(dno) references employee on delete cascade
+);
+create table works_on
+(
+	dno		varchar(20),
+	pno		varchar(20),
+	hours		numeric(3,2),
+	foreign key (dno) references department1 on delete cascade,
+	foreign key (pno) references project on delete cascade
+	
+);
+create table supervisor
+(
+	ssn		varchar(20),
+	essn		varchar(20),
+	start_data	date
+);
+
