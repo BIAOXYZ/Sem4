@@ -1,0 +1,29 @@
+set serveroutput on
+declare
+n number;
+c number;
+s number;
+a float;
+type arr is varray(10) of integer;
+num arr:= arr(1,2,3,4,5,6,7,8,9,-1);
+begin
+c:=0;
+s:=0;
+loop
+n:= num(c+1);
+if n=-1 then
+goto exit;
+else
+		c:=c+1;
+s:=s+n;
+end if;
+end loop;
+<<exit>>
+if (c=0) then 
+a:=0;
+else
+a:=s/c;
+end if;
+dbms_output.put_line('AVERAGE IS'||to_char(a));
+end;
+/
