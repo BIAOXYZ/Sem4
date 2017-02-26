@@ -1,35 +1,47 @@
 data segment
-str1 db 'ABS'
-len1 equ ($-str1)
-str2 db 'ABC'
-len2 equ ($-str2)
-res db 0h
+v db 'a','e','i','o','u'
+str1 db 'aaaaappple'
+len equ ($-str1)
+count db 0
 data ends
 code segment
 assume cs:code,ds:data,es:data
 start:mov ax,data
 mov ds,ax
 mov es,ax
-mov cx,len1
-cld
-lea si,str1
-lea di,str2
+lea di,str1
+mov cx,len
+mov bl,05h
+lea si,v
 
-l1:cmpsb
-jg greater
-jl less
-loop l1
+l1:
+        mov al,[si]
+        cmp [di],al
+        jz cnt
+        inc si
+        dec bl
+        cmp bl,00h
+        jnz l1
 
-greater:mov res,01h
-jmp last
+l2:
+        inc di
+        mov bl,05h
+        lea si,v
+        dec cx
+        cmp cx,00h
+        jnz l1
+        jz last
 
-less:mov res,0fh
-jmp last
+cnt:
+        inc count
+        jmp l2
+last:
+        mov ah,4ch
+        int 21h
+        code ends
+        end start
+        
 
-last:mov ah,4ch
-int 21h
-code ends
-end start
 
 
 
