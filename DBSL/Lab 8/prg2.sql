@@ -7,7 +7,7 @@ countD int;
 exceptionMulti exception;
 begin
 select name, dept_name into name, deptName from instructor where dept_name = inputDept;
-select name, count(*) into name, countD from instructor group by name;
+select name, count(*) into name, countD from instructor group by name having count(*)>1;
 if countD > 1 then raise exceptionMulti;
 end if;
 dbms_output.put_line('Name: '|| to_char(name));
