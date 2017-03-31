@@ -1,0 +1,65 @@
+create table log_change_takes(Time_Of_Change TIMESTAMP, event varchar2(10), ID varchar(8), course_id varchar(8),sec_id varchar(8),semester varchar(8),year numeric(4,0), grade varchar(2)); 
+
+create or replace trigger ct
+	before insert or delete or update on takes
+	for each row
+begin
+	case
+		when inserting then
+			insert into log_change_takes values(current_TIMESTAMP,'insert',:NEW.ID,:NEW.course_id,:NEW.sec_id,:NEW.year,:NEW.semester,:NEW.grade);
+		when deleting then
+			insert into log_change_takes values(current_TIMESTAMP,'delete',:OLD.ID,:OLD.course_id,:OLD.sec_id,:OLD.year,:OLD.semester,:OLD.grade);
+		when updating then
+			insert into log_change_takes values(current_TIMESTAMP,'update',:OLD.ID,:OLD.course_id,:OLD.sec_id,:OLD.year,:OLD.semester,:OLD.grade);
+	end case;
+end;
+/
+
+
+2.
+
+create or replace trigger itr
+	before insert on item_transaction
+	   for each row
+begin
+	update item_master set bal_stock=bal_stock-:NEW.quantity;
+	end;
+/
+
+3.
+
+create table account(account_no number, balance number);
+create table actrans(account_no number, opr char(1), amount number);
+insert into account values (1,10000);
+insert into account values (2,20000);
+insert into account values (3,40000);
+insert into account values (5,670000);
+
+create or replace trigger trans
+	before insert on actrans
+		for each row
+declare 	amt number;
+
+begin
+	select balance into amt from account where account_no = :NEW.account_no;
+	     if :NEW.amount<1 then 
+		raise applicationerror(-20000,'negative amount');
+		elsif :NEW.opr='W' then
+			if amt<:NEW.amount then raise applicationerror(-20001,'insufficient balance');
+		else
+		     update account set balance=balance-:NEW.amount where account_no=:NEW.account_no;
+			end if;
+		end if;	
+Exception	when NO_DATA_FOUND then dbms_output.put_line('Invalid account number');
+end;
+/
+
+5.
+
+create or replace view advisor_student as select s_id,s.name as s_name,i_id,i.name as i_name from ((student1 s join advisor a on s.id=s_id) join instructor i on i_id=i.id);
+
+create or replace trigger advisor_update instead of delete on advisor_student for each row
+begin
+	delete from advisor where s_id=:OLD.s_id;
+end;
+/
