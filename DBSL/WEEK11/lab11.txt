@@ -43,9 +43,9 @@ declare 	amt number;
 begin
 	select balance into amt from account where account_no = :NEW.account_no;
 	     if :NEW.amount<1 then 
-		raise applicationerror(-20000,'negative amount');
+		raise_application_error(-20000,'negative amount');
 		elsif :NEW.opr='W' then
-			if amt<:NEW.amount then raise applicationerror(-20001,'insufficient balance');
+			if amt<:NEW.amount then raise_application_error(-20001,'insufficient balance');
 		else
 		     update account set balance=balance-:NEW.amount where account_no=:NEW.account_no;
 			end if;
